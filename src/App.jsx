@@ -10,6 +10,9 @@ import TestimonialsSection from './components/testimonials/TestimonialsSection';
 import CTABanner from './components/cta/CTABanner';
 import Footer from './components/layout/Footer';
 import HomePage2 from './pages/HomePage2';
+import CookiePolicyPage from './pages/CookiePolicyPage';
+import CustomCursor from './components/common/CustomCursor';
+import CookieConsent from './components/cookies/CookieConsent';
 import { X, CheckCircle2, ShieldCheck, Lock, ArrowRight, Zap, Phone, Mail, Building, MapPin } from 'lucide-react';
 
 export default function App() {
@@ -18,23 +21,25 @@ export default function App() {
   const [modalMode, setModalMode] = useState('survey'); // 'survey' | 'architect' | 'contact'
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Path detection for Home Page 2
-  const [currentPath, setCurrentPath] = useState(() => {
+  // Path detection for routes: '/', '/home-2', '/cookie-policy'
+  const getPath = () => {
     if (typeof window !== 'undefined') {
-      const isHome2 = window.location.pathname === '/home-2' || 
-                      window.location.search.includes('page=2') || 
-                      window.location.hash === '#/home-2';
-      return isHome2 ? '/home-2' : '/';
+      const p = window.location.pathname;
+      if (p === '/cookie-policy' || window.location.search.includes('page=cookie') || window.location.hash === '#/cookie-policy') {
+        return '/cookie-policy';
+      }
+      if (p === '/home-2' || window.location.search.includes('page=2') || window.location.hash === '#/home-2') {
+        return '/home-2';
+      }
     }
     return '/';
-  });
+  };
+
+  const [currentPath, setCurrentPath] = useState(getPath);
 
   useEffect(() => {
     const handleLocationChange = () => {
-      const isHome2 = window.location.pathname === '/home-2' || 
-                      window.location.search.includes('page=2') || 
-                      window.location.hash === '#/home-2';
-      setCurrentPath(isHome2 ? '/home-2' : '/');
+      setCurrentPath(getPath());
     };
     window.addEventListener('popstate', handleLocationChange);
     window.addEventListener('hashchange', handleLocationChange);
@@ -61,18 +66,35 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 selection:bg-blue-600 selection:text-white relative font-sans overflow-x-hidden">
       
-      {/* Route Switcher: Home Page 2 vs Original Home Page */}
-      {currentPath === '/home-2' ? (
-        <HomePage2 
+      {/* Global Floating Cookie Consent Widget (Adapts to Light / Dark Theme) */}
+      <CookieConsent 
+        theme={currentPath === '/home-2' ? 'dark' : 'light'} 
+        onNavigate={navigateTo} 
+      />
+      
+      {/* Route Switcher: Cookie Policy vs Home Page 2 vs Original Home Page */}
+      {currentPath === '/cookie-policy' ? (
+        <CookiePolicyPage 
+          onNavigate={navigateTo}
           onOpenModal={openModal}
           setIsPortalModalOpen={setIsPortalModalOpen}
         />
+      ) : currentPath === '/home-2' ? (
+        <HomePage2 
+          onOpenModal={openModal}
+          setIsPortalModalOpen={setIsPortalModalOpen}
+          onNavigate={navigateTo}
+        />
       ) : (
         <>
+          {/* Custom Dual-Layer Animated Cursor for Home Page 1 */}
+          <CustomCursor variant="default" />
+
           {/* 1. Top Floating Navigation Bar (Glassmorphic) */}
           <FloatingNavbar 
             onOpenContact={() => openModal('contact')}
             onOpenPortal={() => setIsPortalModalOpen(true)}
+            onNavigate={navigateTo}
           />
 
           {/* 2. Main Page Content Sequence */}

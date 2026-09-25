@@ -9,6 +9,7 @@ import FAQSection from '../components/faq/FAQSection';
 import TestimonialsSection from '../components/testimonials/TestimonialsSection';
 import CTABanner from '../components/cta/CTABanner';
 import Footer from '../components/layout/Footer';
+import CustomCursor from '../components/common/CustomCursor';
 
 /**
  * HomePage2 - Variant 2 of Optimus Networks Home Page
@@ -29,18 +30,25 @@ import Footer from '../components/layout/Footer';
  *    - Section 7 (Testimonials): Light (#F8FAFC)
  *    - Section 8 (CTA Banner): Contained Dark Card on Light base
  *    - Section 9 (Footer): Deep Enterprise Navy
+ * 5. Futuristic Custom Cursor: Glowing cyan orb with continuous rotating dashed reticle ring
+ *    and sonar ping ripple animation on click.
  */
 export default function HomePage2({ 
   onOpenModal, 
-  setIsPortalModalOpen 
+  setIsPortalModalOpen,
+  onNavigate 
 }) {
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 selection:bg-cyan-500 selection:text-white relative font-sans overflow-x-hidden">
       
+      {/* Custom Futuristic Glowing Orb & Rotating Reticle Animated Cursor */}
+      <CustomCursor variant="page2" />
+
       {/* 1. Top Floating Navigation Bar (Glassmorphic) */}
       <FloatingNavbar 
         onOpenContact={() => onOpenModal('contact')}
         onOpenPortal={() => setIsPortalModalOpen(true)}
+        onNavigate={onNavigate}
       />
 
       {/* 2. Main Page Content Sequence */}

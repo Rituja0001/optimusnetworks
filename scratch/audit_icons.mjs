@@ -26,7 +26,8 @@ const knownComponents = new Set([
   'ConnectivityTabs', 'StatsAndNOC', 'SolutionsGrid', 'AvailabilityChecker', 
   'AboutSection', 'InsightsSection', 'Footer', 'PortalModal', 'QuoteModal',
   'FiberCanvas', 'StrictMode', 'AnimatePresence', 'IconComponent', 'IconComp', 'ColIcon',
-  'HomePage2', 'NetworkGlobeVisual', 'NetworkGlobe', 'RevealHeading', 'RevealText', 'Component'
+  'HomePage2', 'NetworkGlobeVisual', 'NetworkGlobe', 'RevealHeading', 'RevealText', 'Component',
+  'CustomCursor', 'CookiePolicyPage', 'CookieConsent'
 ]);
 
 for (const file of files) {

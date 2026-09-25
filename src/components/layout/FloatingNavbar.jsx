@@ -21,12 +21,13 @@ import {
   Cpu,
   Sparkles,
   CheckCircle2,
-  PhoneCall
+  PhoneCall,
+  Phone
 } from 'lucide-react';
 // Real Optimus Networks logo asset
 import logoImg from '../../assets/logo/optimusnetworks-logo.png';
 
-export default function FloatingNavbar({ onOpenContact, onOpenSurvey }) {
+export default function FloatingNavbar({ onOpenContact, onOpenSurvey, onNavigate }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isConnectivityOpen, setIsConnectivityOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -346,20 +347,50 @@ export default function FloatingNavbar({ onOpenContact, onOpenSurvey }) {
           })}
         </nav>
 
-        {/* Right Side: CTA Button "Get in Touch" with Gradient Blue Style */}
-        <div className="hidden sm:flex items-center gap-3">
+        {/* Right Side: Desktop Actions (Direct Phone Number, Get in Touch CTA) */}
+        <div className="hidden lg:flex items-center gap-3 xl:gap-4 shrink-0">
+          
+          {/* Direct Telecom Phone Link (Desktop Only) */}
+          <a
+            href="tel:+443330164050"
+            className="inline-flex items-center gap-2 px-2 py-1.5 rounded-xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition-all duration-200 group"
+            aria-label="Call Optimus Networks at +44 (0)333 016 4050"
+          >
+            <div className="w-7 h-7 rounded-lg bg-blue-50 border border-blue-200/80 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-200 shadow-2xs">
+              <Phone className="w-3.5 h-3.5 transition-transform duration-200 group-hover:scale-110" />
+            </div>
+            <span className="text-[13px] xl:text-[14px] font-medium text-slate-800 group-hover:text-blue-600 transition-colors whitespace-nowrap">
+              +44 (0)333 016 4050
+            </span>
+          </a>
+
+          {/* 3. Primary "Get in Touch" CTA Button */}
           <motion.button
             type="button"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             onClick={onOpenContact}
-            className="relative group overflow-hidden px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 text-white text-xs sm:text-sm font-semibold tracking-wide shadow-[0_4px_16px_rgba(0,102,255,0.25)] hover:shadow-[0_6px_24px_rgba(0,102,255,0.4)] transition-all duration-300 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            className="relative group overflow-hidden px-4 xl:px-5 py-2 xl:py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 text-white text-xs sm:text-sm font-semibold tracking-wide shadow-[0_4px_16px_rgba(0,102,255,0.25)] hover:shadow-[0_6px_24px_rgba(0,102,255,0.4)] transition-all duration-300 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 shrink-0"
           >
             {/* Sliding sheen wave */}
             <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/25 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"></div>
             
             <span className="relative z-10">Get in Touch</span>
             <ArrowRight className="w-3.5 h-3.5 relative z-10 group-hover:translate-x-0.5 transition-transform" />
+          </motion.button>
+        </div>
+
+        {/* Tablet / Small Screen (<1024px) CTA: Hidden on mobile (<640px) and desktop (>=1024px) */}
+        <div className="hidden sm:flex lg:hidden items-center gap-2">
+          <motion.button
+            type="button"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={onOpenContact}
+            className="relative group overflow-hidden px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-semibold tracking-wide shadow-xs flex items-center gap-1.5"
+          >
+            <span>Get in Touch</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </motion.button>
         </div>
 
