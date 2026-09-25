@@ -11,11 +11,37 @@ import {
 } from 'lucide-react';
 import HeroVisual from './HeroVisual';
 
-export default function HeroSection({ onOpenSurvey, onOpenAvailability }) {
+export default function HeroSection({ onOpenSurvey, onOpenAvailability, isVariant2 = false }) {
+  // Line-by-line / word-by-word cinematic blur reveal variants for variant 2
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.04,
+        delayChildren: 0.1,
+      }
+    }
+  };
+
+  const wordBlurVariants = {
+    hidden: { opacity: 0, y: 16, filter: 'blur(8px)' },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      filter: 'blur(0px)',
+      transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } 
+    }
+  };
+
   return (
     <section 
       id="home"
-      className="relative min-h-screen pt-28 sm:pt-36 lg:pt-40 pb-20 sm:pb-24 lg:pb-28 overflow-hidden bg-gradient-to-b from-white via-[#F8FAFC]/90 to-[#F8FAFC] text-slate-800 tech-grid-light border-b border-slate-200/70"
+      className={`relative min-h-screen ${
+        isVariant2 
+          ? 'pt-20 sm:pt-24 lg:pt-28' 
+          : 'pt-28 sm:pt-36 lg:pt-40'
+      } pb-20 sm:pb-24 lg:pb-28 overflow-hidden bg-gradient-to-b from-white via-[#F8FAFC]/90 to-[#F8FAFC] text-slate-800 tech-grid-light border-b border-slate-200/70`}
       aria-label="Enterprise Connectivity Hero"
     >
       {/* Background Ambient Atmospheric Lighting for Light Theme (Strictly Contained) */}
@@ -30,29 +56,67 @@ export default function HeroSection({ onOpenSurvey, onOpenAvailability }) {
           {/* Left Side: Value Proposition & CTAs */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-left">
             
-           
-
-            {/* Main Headline: "High-Performance Enterprise Networking & Resilient Connectivity" */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4rem] font-extrabold tracking-tight text-slate-900 leading-[1.08]"
-            >
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
-                High-Performance
-              </span>{" "}
-              Enterprise Networking &{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
-                Resilient Connectivity
-              </span>
-            </motion.h1>
+            {/* Main Headline */}
+            {isVariant2 ? (
+              <motion.h1
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4rem] font-extrabold tracking-tight text-slate-900 leading-[1.08]"
+              >
+                <span className="inline-block mr-[0.25em]">
+                  <motion.span variants={wordBlurVariants} className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
+                    High-Performance
+                  </motion.span>
+                </span>
+                <span className="inline-block mr-[0.25em]">
+                  <motion.span variants={wordBlurVariants} className="inline-block">
+                    Enterprise
+                  </motion.span>
+                </span>
+                <span className="inline-block mr-[0.25em]">
+                  <motion.span variants={wordBlurVariants} className="inline-block">
+                    Networking
+                  </motion.span>
+                </span>
+                <span className="inline-block mr-[0.25em]">
+                  <motion.span variants={wordBlurVariants} className="inline-block">
+                    &amp;
+                  </motion.span>
+                </span>
+                <span className="inline-block mr-[0.25em]">
+                  <motion.span variants={wordBlurVariants} className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
+                    Resilient
+                  </motion.span>
+                </span>
+                <span className="inline-block">
+                  <motion.span variants={wordBlurVariants} className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
+                    Connectivity
+                  </motion.span>
+                </span>
+              </motion.h1>
+            ) : (
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4rem] font-extrabold tracking-tight text-slate-900 leading-[1.08]"
+              >
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
+                  High-Performance
+                </span>{" "}
+                Enterprise Networking &amp;{" "}
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
+                  Resilient Connectivity
+                </span>
+              </motion.h1>
+            )}
 
             {/* Subheadline: Clear multi-site resilience narrative */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: isVariant2 ? 0.35 : 0.2 }}
               className="text-base sm:text-lg text-slate-600 max-w-2xl font-normal leading-relaxed"
             >
               Reliable primary leased lines, automatic backup, and rapid-deploy wireless to keep your multi-site stores, offices, and operations running 24/7/365.
@@ -125,7 +189,7 @@ export default function HeroSection({ onOpenSurvey, onOpenAvailability }) {
 
           {/* Right Side: Visual Centerpiece */}
           <div className="lg:col-span-5 relative flex items-center justify-center">
-            <HeroVisual />
+            <HeroVisual isVariant2={isVariant2} showGlobe={isVariant2} />
           </div>
 
         </div>

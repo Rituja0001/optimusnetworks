@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FloatingNavbar from './components/layout/FloatingNavbar';
 import HeroSection from './components/hero/HeroSection';
 import TrustedPartnersStrip from './components/hero/TrustedPartnersStrip';
@@ -9,6 +9,7 @@ import FAQSection from './components/faq/FAQSection';
 import TestimonialsSection from './components/testimonials/TestimonialsSection';
 import CTABanner from './components/cta/CTABanner';
 import Footer from './components/layout/Footer';
+import HomePage2 from './pages/HomePage2';
 import { X, CheckCircle2, ShieldCheck, Lock, ArrowRight, Zap, Phone, Mail, Building, MapPin } from 'lucide-react';
 
 export default function App() {
@@ -16,6 +17,40 @@ export default function App() {
   const [isPortalModalOpen, setIsPortalModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState('survey'); // 'survey' | 'architect' | 'contact'
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Path detection for Home Page 2
+  const [currentPath, setCurrentPath] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const isHome2 = window.location.pathname === '/home-2' || 
+                      window.location.search.includes('page=2') || 
+                      window.location.hash === '#/home-2';
+      return isHome2 ? '/home-2' : '/';
+    }
+    return '/';
+  });
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const isHome2 = window.location.pathname === '/home-2' || 
+                      window.location.search.includes('page=2') || 
+                      window.location.hash === '#/home-2';
+      setCurrentPath(isHome2 ? '/home-2' : '/');
+    };
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
+  }, []);
+
+  const navigateTo = (path) => {
+    if (typeof window !== 'undefined') {
+      window.history.pushState({}, '', path);
+      setCurrentPath(path);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   const openModal = (mode = 'survey') => {
     setModalMode(mode);
@@ -26,59 +61,100 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 selection:bg-blue-600 selection:text-white relative font-sans overflow-x-hidden">
       
-      {/* 1. Top Floating Navigation Bar (Glassmorphic) */}
-      <FloatingNavbar 
-        onOpenContact={() => openModal('contact')}
-        onOpenPortal={() => setIsPortalModalOpen(true)}
-      />
-
-      {/* 2. Main Page Content Sequence */}
-      <main>
-        {/* 1. Hero Section */}
-        <HeroSection 
-          onOpenSurvey={() => openModal('survey')}
-          onOpenAvailability={() => openModal('availability')}
+      {/* Route Switcher: Home Page 2 vs Original Home Page */}
+      {currentPath === '/home-2' ? (
+        <HomePage2 
+          onOpenModal={openModal}
+          setIsPortalModalOpen={setIsPortalModalOpen}
         />
+      ) : (
+        <>
+          {/* 1. Top Floating Navigation Bar (Glassmorphic) */}
+          <FloatingNavbar 
+            onOpenContact={() => openModal('contact')}
+            onOpenPortal={() => setIsPortalModalOpen(true)}
+          />
 
-        {/* 2. Trusted Technology Partners Section */}
-        <TrustedPartnersStrip />
+          {/* 2. Main Page Content Sequence */}
+          <main>
+            {/* 1. Hero Section */}
+            <HeroSection 
+              onOpenSurvey={() => openModal('survey')}
+              onOpenAvailability={() => openModal('availability')}
+            />
 
-        {/* 3. Why Choose Optimus Networks (About Us) Section */}
-        <WhyChooseUs onOpenContact={() => openModal('contact')} />
+            {/* 2. Trusted Technology Partners Section */}
+            <TrustedPartnersStrip />
 
-        {/* 4. Our Core Services Section */}
-        <ServicesSection 
-          onOpenSurvey={() => openModal('survey')}
-          onOpenContact={() => openModal('contact')}
-        />
+            {/* 3. Why Choose Optimus Networks (About Us) Section */}
+            <WhyChooseUs onOpenContact={() => openModal('contact')} />
 
-        {/* 5. Client Case Studies Section */}
-        <CaseStudiesSection onOpenContact={() => openModal('contact')} />
+            {/* 4. Our Core Services Section */}
+            <ServicesSection 
+              onOpenSurvey={() => openModal('survey')}
+              onOpenContact={() => openModal('contact')}
+            />
 
-        {/* 6. Frequently Asked Questions (FAQ) Section */}
-        <FAQSection 
-          onOpenContact={() => openModal('contact')}
-          onOpenSurvey={() => openModal('survey')}
-        />
+            {/* 5. Client Case Studies Section */}
+            <CaseStudiesSection onOpenContact={() => openModal('contact')} />
 
-        {/* 7. Client Testimonials & Social Proof Marquee Section */}
-        <TestimonialsSection 
-          onOpenContact={() => openModal('contact')}
-          onOpenSurvey={() => openModal('survey')}
-        />
+            {/* 6. Frequently Asked Questions (FAQ) Section */}
+            <FAQSection 
+              onOpenContact={() => openModal('contact')}
+              onOpenSurvey={() => openModal('survey')}
+            />
 
-        {/* 8. Standalone High-Impact Dark CTA Banner Section */}
-        <CTABanner 
-          onOpenAssessment={() => openModal('contact')}
-          onOpenSurvey={() => openModal('survey')}
-        />
-      </main>
+            {/* 7. Client Testimonials & Social Proof Marquee Section */}
+            <TestimonialsSection 
+              onOpenContact={() => openModal('contact')}
+              onOpenSurvey={() => openModal('survey')}
+            />
 
-      {/* 3. Global Enterprise Footer */}
-      <Footer 
-        onOpenPortal={() => setIsPortalModalOpen(true)}
-        onOpenQuote={() => openModal('survey')}
-      />
+            {/* 8. Standalone High-Impact Dark CTA Banner Section */}
+            <CTABanner 
+              onOpenAssessment={() => openModal('contact')}
+              onOpenSurvey={() => openModal('survey')}
+            />
+          </main>
+
+          {/* 3. Global Enterprise Footer */}
+          <Footer 
+            onOpenPortal={() => setIsPortalModalOpen(true)}
+            onOpenQuote={() => openModal('survey')}
+          />
+        </>
+      )}
+
+      {/* Floating Home Variant Toggle Pill (Persistent across pages) */}
+      <div 
+        className="fixed bottom-5 right-5 z-40 flex items-center bg-slate-900/90 backdrop-blur-md border border-white/20 p-1.5 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.45)] text-xs font-semibold"
+        role="navigation"
+        aria-label="Home page version switcher"
+      >
+        <button
+          type="button"
+          onClick={() => navigateTo('/')}
+          className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
+            currentPath === '/' 
+              ? 'bg-blue-600 text-white shadow-xs font-bold' 
+              : 'text-slate-400 hover:text-white'
+          }`}
+        >
+          Home 1 (Original)
+        </button>
+        <button
+          type="button"
+          onClick={() => navigateTo('/home-2')}
+          className={`px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer ${
+            currentPath === '/home-2' 
+              ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-slate-950 font-bold shadow-xs' 
+              : 'text-slate-400 hover:text-white'
+          }`}
+        >
+          <span>Home 2 (Variant)</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+        </button>
+      </div>
 
       {/* Interactive Site Survey / Lead Capture Modal (Light Theme) */}
       {isSurveyModalOpen && (

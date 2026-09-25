@@ -10,7 +10,8 @@ import {
   CheckCircle2
 } from 'lucide-react';
 
-export default function FAQSection({ onOpenContact, onOpenSurvey }) {
+export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light" }) {
+  const isDark = theme === "dark";
   // CRITICAL: Shared active index across the ENTIRE section (only 1 open at a time)
   const [openIndex, setOpenIndex] = useState(0); // Item 0 open by default for immediate preview
 
@@ -79,12 +80,25 @@ export default function FAQSection({ onOpenContact, onOpenSurvey }) {
   return (
     <section 
       id="faq"
-      className="relative py-20 sm:py-24 lg:py-28 overflow-hidden bg-white text-slate-800 border-b border-slate-200/70"
+      className={`relative py-20 sm:py-24 lg:py-28 overflow-hidden transition-colors duration-300 ${
+        isDark 
+          ? 'bg-gradient-to-br from-[#060A14] via-[#0A1628] to-[#0E2A4A] text-white border-b border-cyan-500/20' 
+          : 'bg-white text-slate-800 border-b border-slate-200/70'
+      }`}
       aria-label="Frequently Asked Questions"
     >
-      {/* Decorative Ambient Background Glows (Strictly Contained) */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-400/10 via-cyan-400/10 to-transparent rounded-full blur-[140px] pointer-events-none -z-10"></div>
-      <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-blue-100/50 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+      {/* Decorative Ambient Background Glows */}
+      {isDark ? (
+        <>
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-600/15 via-cyan-500/15 to-transparent rounded-full blur-[140px] pointer-events-none -z-10"></div>
+          <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-cyan-900/20 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+        </>
+      ) : (
+        <>
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-400/10 via-cyan-400/10 to-transparent rounded-full blur-[140px] pointer-events-none -z-10"></div>
+          <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-blue-100/50 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+        </>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -97,13 +111,23 @@ export default function FAQSection({ onOpenContact, onOpenSurvey }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 backdrop-blur-md shadow-xs mb-4"
+            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full backdrop-blur-md shadow-xs mb-4 ${
+              isDark
+                ? 'bg-cyan-500/10 border border-cyan-400/30'
+                : 'bg-blue-50/90 border border-blue-200/80'
+            }`}
           >
             <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                isDark ? 'bg-cyan-400' : 'bg-blue-500'
+              }`}></span>
+              <span className={`relative inline-flex rounded-full h-2 w-2 ${
+                isDark ? 'bg-cyan-300' : 'bg-blue-600'
+              }`}></span>
             </span>
-            <span className="text-xs font-bold text-blue-700 tracking-wide uppercase">
+            <span className={`text-xs font-bold tracking-wide uppercase ${
+              isDark ? 'text-cyan-300' : 'text-blue-700'
+            }`}>
               FAQs
             </span>
           </motion.div>
@@ -114,10 +138,16 @@ export default function FAQSection({ onOpenContact, onOpenSurvey }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.12]"
+            className={`text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.12] ${
+              isDark ? 'text-white' : 'text-slate-900'
+            }`}
           >
             Got Questions? We've Got{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
+            <span className={`bg-clip-text text-transparent ${
+              isDark
+                ? 'bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300'
+                : 'bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500'
+            }`}>
               Answers
             </span>
           </motion.h2>
@@ -128,14 +158,15 @@ export default function FAQSection({ onOpenContact, onOpenSurvey }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-4 text-base sm:text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed font-normal"
+            className={`mt-4 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-normal ${
+              isDark ? 'text-slate-300' : 'text-slate-500'
+            }`}
           >
             Everything you need to know about our connectivity services. Can't find what you're looking for? Reach out to our team.
           </motion.p>
         </div>
 
         {/* 2-Column Desktop Grid / Sequential 1-Column Mobile Layout */}
-        {/* Desktop View: Left Column (0-4) and Right Column (5-9) sharing openIndex */}
         <div className="hidden lg:grid lg:grid-cols-2 gap-6 items-start">
           
           {/* Left Column (Items 1-5) */}
@@ -149,6 +180,7 @@ export default function FAQSection({ onOpenContact, onOpenSurvey }) {
                   faq={faq}
                   index={globalIndex}
                   isOpen={isOpen}
+                  isDark={isDark}
                   onToggle={() => handleToggle(globalIndex)}
                 />
               );
@@ -166,6 +198,7 @@ export default function FAQSection({ onOpenContact, onOpenSurvey }) {
                   faq={faq}
                   index={globalIndex}
                   isOpen={isOpen}
+                  isDark={isDark}
                   onToggle={() => handleToggle(globalIndex)}
                 />
               );
@@ -174,7 +207,7 @@ export default function FAQSection({ onOpenContact, onOpenSurvey }) {
 
         </div>
 
-        {/* Mobile & Tablet View: Single Column Stack (Items 0-9 in Sequential Order) */}
+        {/* Mobile & Tablet View: Single Column Stack */}
         <div className="lg:hidden space-y-4">
           {faqData.map((faq, globalIndex) => {
             const isOpen = openIndex === globalIndex;
@@ -184,6 +217,7 @@ export default function FAQSection({ onOpenContact, onOpenSurvey }) {
                 faq={faq}
                 index={globalIndex}
                 isOpen={isOpen}
+                isDark={isDark}
                 onToggle={() => handleToggle(globalIndex)}
               />
             );
@@ -196,17 +230,23 @@ export default function FAQSection({ onOpenContact, onOpenSurvey }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-14 sm:mt-18 rounded-3xl bg-gradient-to-r from-blue-50/90 via-cyan-50/60 to-emerald-50/40 border border-blue-200/80 p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-6 text-left"
+          className={`mt-14 sm:mt-18 rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-6 text-left ${
+            isDark
+              ? 'bg-gradient-to-r from-slate-900/90 via-[#0E2038] to-slate-900/90 border border-cyan-500/30 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.4)]'
+              : 'bg-gradient-to-r from-blue-50/90 via-cyan-50/60 to-emerald-50/40 border border-blue-200/80'
+          }`}
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-blue-600/10 text-blue-600 flex items-center justify-center shrink-0">
-              <MessageSquare className="w-6 h-6 text-blue-600" />
+            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${
+              isDark ? 'bg-cyan-500/15 text-cyan-400' : 'bg-blue-600/10 text-blue-600'
+            }`}>
+              <MessageSquare className={`w-6 h-6 ${isDark ? 'text-cyan-400' : 'text-blue-600'}`} />
             </div>
             <div>
-              <h3 className="text-base sm:text-lg font-bold text-slate-900">
+              <h3 className={`text-base sm:text-lg font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
                 Have a bespoke networking requirement?
               </h3>
-              <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              <p className={`text-xs sm:text-sm mt-0.5 ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
                 Speak directly with our UK Lead Network Architects for an instant technical consultation.
               </p>
             </div>
@@ -216,7 +256,11 @@ export default function FAQSection({ onOpenContact, onOpenSurvey }) {
             <button
               type="button"
               onClick={onOpenContact}
-              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm tracking-wide transition-all shadow-xs hover:shadow-md flex items-center gap-2 group"
+              className={`px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm tracking-wide transition-all flex items-center gap-2 group shadow-xs hover:shadow-md ${
+                isDark
+                  ? 'bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white'
+                  : 'bg-blue-600 hover:bg-blue-700 text-white'
+              }`}
             >
               <span>Speak with an Engineer</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -230,22 +274,30 @@ export default function FAQSection({ onOpenContact, onOpenSurvey }) {
 }
 
 // Reusable FAQ Accordion Item Component
-function FAQCard({ faq, index, isOpen, onToggle }) {
+function FAQCard({ faq, index, isOpen, isDark, onToggle }) {
+  const cardBorderBg = isDark
+    ? isOpen
+      ? 'border-cyan-400/80 shadow-[0_0_30px_rgba(0,210,255,0.2)] bg-slate-900/90 backdrop-blur-md'
+      : 'bg-slate-900/60 backdrop-blur-md border-white/10 hover:border-cyan-400/40 text-white hover:bg-slate-900/80'
+    : isOpen
+      ? 'border-blue-400 shadow-[0_12px_28px_-6px_rgba(0,102,255,0.12)] bg-gradient-to-r from-blue-50/25 via-white to-white'
+      : 'bg-slate-50/70 hover:bg-white border-slate-200/90 hover:border-blue-300 shadow-2xs hover:shadow-md';
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: (index % 5) * 0.08 }}
-      className={`relative rounded-2xl border transition-all duration-300 overflow-hidden text-left ${
-        isOpen 
-          ? 'border-blue-400 shadow-[0_12px_28px_-6px_rgba(0,102,255,0.12)] bg-gradient-to-r from-blue-50/25 via-white to-white' 
-          : 'bg-slate-50/70 hover:bg-white border-slate-200/90 hover:border-blue-300 shadow-2xs hover:shadow-md'
-      }`}
+      className={`relative rounded-2xl border transition-all duration-300 overflow-hidden text-left ${cardBorderBg}`}
     >
       {/* Active Left Border Accent Indicator */}
       {isOpen && (
-        <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-blue-600 via-cyan-500 to-teal-500"></div>
+        <div className={`absolute top-0 bottom-0 left-0 w-1 ${
+          isDark 
+            ? 'bg-gradient-to-b from-cyan-400 via-blue-500 to-teal-400'
+            : 'bg-gradient-to-b from-blue-600 via-cyan-500 to-teal-500'
+        }`}></div>
       )}
 
       {/* Accordion Question Trigger Header */}
@@ -256,16 +308,22 @@ function FAQCard({ faq, index, isOpen, onToggle }) {
         aria-expanded={isOpen}
       >
         <span className={`text-sm sm:text-base font-bold transition-colors ${
-          isOpen ? 'text-blue-600' : 'text-slate-900 group-hover:text-blue-600'
+          isDark
+            ? isOpen ? 'text-cyan-300' : 'text-slate-100 group-hover:text-cyan-300'
+            : isOpen ? 'text-blue-600' : 'text-slate-900 group-hover:text-blue-600'
         }`}>
           {faq.question}
         </span>
 
         {/* Plus that rotates 45deg to × icon */}
         <div className={`shrink-0 w-8 h-8 rounded-xl flex items-center justify-center border transition-all duration-300 ${
-          isOpen 
-            ? 'bg-blue-600 text-white border-blue-600 shadow-xs' 
-            : 'bg-slate-50 text-slate-500 border-slate-200 group-hover:bg-blue-50 group-hover:text-blue-600'
+          isDark
+            ? isOpen
+              ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-xs'
+              : 'bg-slate-800 text-slate-300 border-white/10 group-hover:bg-slate-700 group-hover:text-cyan-300'
+            : isOpen
+              ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
+              : 'bg-slate-50 text-slate-500 border-slate-200 group-hover:bg-blue-50 group-hover:text-blue-600'
         }`}>
           <Plus className={`w-4 h-4 transition-transform duration-300 ease-out ${
             isOpen ? 'rotate-45' : 'rotate-0'
@@ -284,7 +342,11 @@ function FAQCard({ faq, index, isOpen, onToggle }) {
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <div className="px-5 sm:px-6 pb-6 pt-1 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-slate-100">
+            <div className={`px-5 sm:px-6 pb-6 pt-1 text-sm sm:text-base leading-relaxed border-t ${
+              isDark
+                ? 'text-slate-300 border-white/10'
+                : 'text-slate-600 border-slate-100'
+            }`}>
               <p>{faq.answer}</p>
             </div>
           </motion.div>

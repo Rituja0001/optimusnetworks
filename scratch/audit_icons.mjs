@@ -25,7 +25,8 @@ const knownComponents = new Set([
   'WhyChooseUs', 'ServicesSection', 'CaseStudiesSection', 'FAQSection', 'FAQCard', 'TestimonialsSection', 'TestimonialCard', 'CTABanner', 'AnimatedNumber', 'ClientLogoMarquee', 'SmoothScrollProvider', 'Navbar', 'Hero', 'NetConnectShowcase', 
   'ConnectivityTabs', 'StatsAndNOC', 'SolutionsGrid', 'AvailabilityChecker', 
   'AboutSection', 'InsightsSection', 'Footer', 'PortalModal', 'QuoteModal',
-  'FiberCanvas', 'StrictMode', 'AnimatePresence', 'IconComponent', 'IconComp', 'ColIcon'
+  'FiberCanvas', 'StrictMode', 'AnimatePresence', 'IconComponent', 'IconComp', 'ColIcon',
+  'HomePage2', 'NetworkGlobeVisual', 'NetworkGlobe', 'RevealHeading', 'RevealText', 'Component'
 ]);
 
 for (const file of files) {
