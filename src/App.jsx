@@ -64,7 +64,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 selection:bg-blue-600 selection:text-white relative font-sans overflow-x-hidden">
+    <div className={`min-h-screen ${currentPath === '/' ? 'selection:bg-[#0846E7]' : 'selection:bg-blue-600'} selection:text-white relative font-sans overflow-x-hidden bg-[#F8FAFC] text-slate-800`}>
       
       {/* Global Floating Cookie Consent Widget (Adapts to Light / Dark Theme) */}
       <CookieConsent 
@@ -92,6 +92,7 @@ export default function App() {
 
           {/* 1. Top Floating Navigation Bar (Glassmorphic) */}
           <FloatingNavbar 
+            isHomePage1={true}
             onOpenContact={() => openModal('contact')}
             onOpenPortal={() => setIsPortalModalOpen(true)}
             onNavigate={navigateTo}
@@ -106,34 +107,46 @@ export default function App() {
             />
 
             {/* 2. Trusted Technology Partners Section */}
-            <TrustedPartnersStrip />
+            <TrustedPartnersStrip 
+              isHomePage1={true}
+            />
 
             {/* 3. Why Choose Optimus Networks (About Us) Section */}
-            <WhyChooseUs onOpenContact={() => openModal('contact')} />
+            <WhyChooseUs 
+              isHomePage1={true}
+              onOpenContact={() => openModal('contact')} 
+            />
 
             {/* 4. Our Core Services Section */}
             <ServicesSection 
+              isHomePage1={true}
               onOpenSurvey={() => openModal('survey')}
               onOpenContact={() => openModal('contact')}
             />
 
             {/* 5. Client Case Studies Section */}
-            <CaseStudiesSection onOpenContact={() => openModal('contact')} />
+            <CaseStudiesSection 
+              isHomePage1={true}
+              onOpenContact={() => openModal('contact')} 
+            />
 
             {/* 6. Frequently Asked Questions (FAQ) Section */}
             <FAQSection 
+              isHomePage1={true}
               onOpenContact={() => openModal('contact')}
               onOpenSurvey={() => openModal('survey')}
             />
 
             {/* 7. Client Testimonials & Social Proof Marquee Section */}
             <TestimonialsSection 
+              isHomePage1={true}
               onOpenContact={() => openModal('contact')}
               onOpenSurvey={() => openModal('survey')}
             />
 
             {/* 8. Standalone High-Impact Dark CTA Banner Section */}
             <CTABanner 
+              isHomePage1={true}
               onOpenAssessment={() => openModal('contact')}
               onOpenSurvey={() => openModal('survey')}
             />
@@ -141,6 +154,7 @@ export default function App() {
 
           {/* 3. Global Enterprise Footer */}
           <Footer 
+            isHomePage1={true}
             onOpenPortal={() => setIsPortalModalOpen(true)}
             onOpenQuote={() => openModal('survey')}
           />
@@ -158,7 +172,7 @@ export default function App() {
           onClick={() => navigateTo('/')}
           className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
             currentPath === '/' 
-              ? 'bg-blue-600 text-white shadow-xs font-bold' 
+              ? 'bg-[#0846E7] text-white shadow-xs font-bold' 
               : 'text-slate-400 hover:text-white'
           }`}
         >
@@ -204,7 +218,7 @@ export default function App() {
                 </p>
                 <button
                   onClick={() => setIsSurveyModalOpen(false)}
-                  className="mt-4 px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs tracking-wide transition-all shadow-[0_0_15px_rgba(0,102,255,0.3)]"
+                  className="mt-4 px-6 py-2.5 rounded-xl bg-[#0846E7] hover:bg-[#0639BC] text-white font-semibold text-xs tracking-wide transition-all shadow-[0_0_15px_rgba(8,70,231,0.3)]"
                 >
                   Return to Overview
                 </button>
@@ -215,7 +229,7 @@ export default function App() {
                 className="space-y-4"
               >
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shadow-xs">
+                  <div className="w-10 h-10 rounded-xl bg-[#0846E7]/10 border border-[#0846E7]/25 flex items-center justify-center text-[#0846E7] shadow-xs">
                     <Zap className="w-5 h-5" />
                   </div>
                   <div>
@@ -235,7 +249,7 @@ export default function App() {
                       type="text"
                       required
                       placeholder="e.g. Alistair Finch"
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-[#0846E7] focus:ring-1 focus:ring-[#0846E7] transition-all"
                     />
                   </div>
 
@@ -246,7 +260,7 @@ export default function App() {
                         type="email"
                         required
                         placeholder="name@company.co.uk"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-[#0846E7] focus:ring-1 focus:ring-[#0846E7] transition-all"
                       />
                     </div>
 
@@ -256,14 +270,14 @@ export default function App() {
                         type="text"
                         required
                         placeholder="e.g. EC2A 4NE"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm uppercase focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm uppercase focus:outline-none focus:bg-white focus:border-[#0846E7] focus:ring-1 focus:ring-[#0846E7] transition-all"
                       />
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">Connectivity Solution</label>
-                    <select className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:bg-white focus:border-blue-500 transition-all">
+                    <select className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:bg-white focus:border-[#0846E7] transition-all">
                       <option value="dia">Dedicated Internet Access (DIA 1Gbps - 100Gbps)</option>
                       <option value="dual-active">Dual Active-Active Leased Lines (Hitless Failover)</option>
                       <option value="sd-wan">Enterprise SD-WAN & Multi-Site MPLS</option>
@@ -276,7 +290,7 @@ export default function App() {
                 <div className="pt-3">
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 hover:opacity-95 text-white font-bold text-sm tracking-wide shadow-[0_4px_16px_rgba(0,102,255,0.25)] flex items-center justify-center gap-2 transition-all"
+                    className="w-full py-3.5 rounded-xl bg-[#0846E7] hover:bg-[#0639BC] text-white font-bold text-sm tracking-wide shadow-[0_4px_16px_rgba(8,70,231,0.25)] flex items-center justify-center gap-2 transition-all cursor-pointer"
                   >
                     <span>Request Site Survey Feasibility</span>
                     <ArrowRight className="w-4 h-4" />
@@ -303,7 +317,7 @@ export default function App() {
             </button>
 
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
+              <div className="w-10 h-10 rounded-xl bg-[#0846E7]/10 border border-[#0846E7]/25 flex items-center justify-center text-[#0846E7]">
                 <Lock className="w-5 h-5" />
               </div>
               <div>
@@ -318,7 +332,7 @@ export default function App() {
                 <input
                   type="email"
                   placeholder="engineer@enterprise.co.uk"
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-blue-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-[#0846E7]"
                 />
               </div>
 
@@ -327,14 +341,14 @@ export default function App() {
                 <input
                   type="text"
                   placeholder="OPT-UK-9042"
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-blue-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:bg-white focus:border-[#0846E7]"
                 />
               </div>
 
               <button
                 type="button"
                 onClick={() => setIsPortalModalOpen(false)}
-                className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-[0_4px_16px_rgba(0,102,255,0.25)] transition-all"
+                className="w-full py-3 rounded-xl bg-[#0846E7] hover:bg-[#0639BC] text-white font-bold text-sm shadow-[0_4px_16px_rgba(8,70,231,0.25)] transition-all cursor-pointer"
               >
                 Authenticate Session
               </button>

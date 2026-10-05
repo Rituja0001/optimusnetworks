@@ -10,10 +10,10 @@ import {
   CheckCircle2
 } from 'lucide-react';
 
-export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light" }) {
+export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light", isHomePage1 = false }) {
   const isDark = theme === "dark";
-  // CRITICAL: Shared active index across the ENTIRE section (only 1 open at a time)
-  const [openIndex, setOpenIndex] = useState(0); // Item 0 open by default for immediate preview
+  // CRITICAL: All FAQs closed initially; open only on user click
+  const [openIndex, setOpenIndex] = useState(null);
 
   const faqData = [
     {
@@ -83,6 +83,8 @@ export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light
       className={`relative py-20 sm:py-24 lg:py-28 overflow-hidden transition-colors duration-300 ${
         isDark 
           ? 'bg-gradient-to-br from-[#060A14] via-[#0A1628] to-[#0E2A4A] text-white border-b border-cyan-500/20' 
+          : isHomePage1
+          ? 'bg-[#0846E7] text-white border-y border-blue-400/30'
           : 'bg-white text-slate-800 border-b border-slate-200/70'
       }`}
       aria-label="Frequently Asked Questions"
@@ -92,6 +94,11 @@ export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light
         <>
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-600/15 via-cyan-500/15 to-transparent rounded-full blur-[140px] pointer-events-none -z-10"></div>
           <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-cyan-900/20 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+        </>
+      ) : isHomePage1 ? (
+        <>
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-white/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+          <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-white/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
         </>
       ) : (
         <>
@@ -114,19 +121,21 @@ export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light
             className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full backdrop-blur-md shadow-xs mb-4 ${
               isDark
                 ? 'bg-cyan-500/10 border border-cyan-400/30'
-                : 'bg-blue-50/90 border border-blue-200/80'
+                : isHomePage1
+                ? 'bg-white/15 border border-white/25 text-white'
+                : 'bg-blue-50/90 border border-blue-200/80 text-blue-700'
             }`}
           >
             <span className="flex h-2 w-2 relative">
               <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                isDark ? 'bg-cyan-400' : 'bg-blue-500'
+                isDark ? 'bg-cyan-400' : isHomePage1 ? 'bg-white' : 'bg-blue-500'
               }`}></span>
               <span className={`relative inline-flex rounded-full h-2 w-2 ${
-                isDark ? 'bg-cyan-300' : 'bg-blue-600'
+                isDark ? 'bg-cyan-300' : isHomePage1 ? 'bg-white' : 'bg-blue-600'
               }`}></span>
             </span>
             <span className={`text-xs font-bold tracking-wide uppercase ${
-              isDark ? 'text-cyan-300' : 'text-blue-700'
+              isDark ? 'text-cyan-300' : isHomePage1 ? 'text-white' : 'text-blue-700'
             }`}>
               FAQs
             </span>
@@ -139,17 +148,23 @@ export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className={`text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.12] ${
-              isDark ? 'text-white' : 'text-slate-900'
+              isDark || isHomePage1 ? 'text-white' : 'text-slate-900'
             }`}
           >
             Got Questions? We've Got{" "}
-            <span className={`bg-clip-text text-transparent ${
-              isDark
-                ? 'bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300'
-                : 'bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500'
-            }`}>
-              Answers
-            </span>
+            {isHomePage1 ? (
+              <span className="text-white underline decoration-white/30">
+                Answers
+              </span>
+            ) : (
+              <span className={`bg-clip-text text-transparent ${
+                isDark
+                  ? 'bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300'
+                  : 'bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500'
+              }`}>
+                Answers
+              </span>
+            )}
           </motion.h2>
 
           {/* Subheading */}
@@ -159,7 +174,7 @@ export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className={`mt-4 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-normal ${
-              isDark ? 'text-slate-300' : 'text-slate-500'
+              isDark ? 'text-slate-300' : isHomePage1 ? 'text-white/85' : 'text-slate-500'
             }`}
           >
             Everything you need to know about our connectivity services. Can't find what you're looking for? Reach out to our team.
@@ -181,6 +196,7 @@ export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light
                   index={globalIndex}
                   isOpen={isOpen}
                   isDark={isDark}
+                  isHomePage1={isHomePage1}
                   onToggle={() => handleToggle(globalIndex)}
                 />
               );
@@ -199,6 +215,7 @@ export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light
                   index={globalIndex}
                   isOpen={isOpen}
                   isDark={isDark}
+                  isHomePage1={isHomePage1}
                   onToggle={() => handleToggle(globalIndex)}
                 />
               );
@@ -218,6 +235,7 @@ export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light
                 index={globalIndex}
                 isOpen={isOpen}
                 isDark={isDark}
+                isHomePage1={isHomePage1}
                 onToggle={() => handleToggle(globalIndex)}
               />
             );
@@ -233,20 +251,26 @@ export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light
           className={`mt-14 sm:mt-18 rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-6 text-left ${
             isDark
               ? 'bg-gradient-to-r from-slate-900/90 via-[#0E2038] to-slate-900/90 border border-cyan-500/30 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.4)]'
+              : isHomePage1
+              ? 'bg-white/15 border border-white/25 backdrop-blur-md text-white shadow-[0_10px_30px_rgba(0,0,0,0.15)]'
               : 'bg-gradient-to-r from-blue-50/90 via-cyan-50/60 to-emerald-50/40 border border-blue-200/80'
           }`}
         >
           <div className="flex items-center gap-4">
             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${
-              isDark ? 'bg-cyan-500/15 text-cyan-400' : 'bg-blue-600/10 text-blue-600'
+              isDark 
+                ? 'bg-cyan-500/15 text-cyan-400' 
+                : isHomePage1 
+                ? 'bg-white/20 text-white' 
+                : 'bg-blue-600/10 text-blue-600'
             }`}>
-              <MessageSquare className={`w-6 h-6 ${isDark ? 'text-cyan-400' : 'text-blue-600'}`} />
+              <MessageSquare className={`w-6 h-6 ${isDark ? 'text-cyan-400' : isHomePage1 ? 'text-white' : 'text-blue-600'}`} />
             </div>
             <div>
-              <h3 className={`text-base sm:text-lg font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
+              <h3 className={`text-base sm:text-lg font-bold ${isDark || isHomePage1 ? 'text-white' : 'text-slate-900'}`}>
                 Have a bespoke networking requirement?
               </h3>
-              <p className={`text-xs sm:text-sm mt-0.5 ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
+              <p className={`text-xs sm:text-sm mt-0.5 ${isDark ? 'text-slate-300' : isHomePage1 ? 'text-white/85' : 'text-slate-500'}`}>
                 Speak directly with our UK Lead Network Architects for an instant technical consultation.
               </p>
             </div>
@@ -256,9 +280,11 @@ export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light
             <button
               type="button"
               onClick={onOpenContact}
-              className={`px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm tracking-wide transition-all flex items-center gap-2 group shadow-xs hover:shadow-md ${
+              className={`px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm tracking-wide transition-all flex items-center gap-2 group shadow-xs hover:shadow-md cursor-pointer ${
                 isDark
                   ? 'bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white'
+                  : isHomePage1
+                  ? 'bg-white hover:bg-slate-100 text-[#0846E7] font-bold shadow-[0_10px_25px_-5px_rgba(0,0,0,0.2)]'
                   : 'bg-blue-600 hover:bg-blue-700 text-white'
               }`}
             >
@@ -274,11 +300,15 @@ export default function FAQSection({ onOpenContact, onOpenSurvey, theme = "light
 }
 
 // Reusable FAQ Accordion Item Component
-function FAQCard({ faq, index, isOpen, isDark, onToggle }) {
+function FAQCard({ faq, index, isOpen, isDark, isHomePage1, onToggle }) {
   const cardBorderBg = isDark
     ? isOpen
       ? 'border-cyan-400/80 shadow-[0_0_30px_rgba(0,210,255,0.2)] bg-slate-900/90 backdrop-blur-md'
       : 'bg-slate-900/60 backdrop-blur-md border-white/10 hover:border-cyan-400/40 text-white hover:bg-slate-900/80'
+    : isHomePage1
+    ? isOpen
+      ? 'border-white shadow-[0_12px_28px_-6px_rgba(0,0,0,0.25)] bg-white'
+      : 'bg-white hover:bg-slate-50 border-white/40 shadow-sm hover:shadow-md'
     : isOpen
       ? 'border-blue-400 shadow-[0_12px_28px_-6px_rgba(0,102,255,0.12)] bg-gradient-to-r from-blue-50/25 via-white to-white'
       : 'bg-slate-50/70 hover:bg-white border-slate-200/90 hover:border-blue-300 shadow-2xs hover:shadow-md';
@@ -293,9 +323,11 @@ function FAQCard({ faq, index, isOpen, isDark, onToggle }) {
     >
       {/* Active Left Border Accent Indicator */}
       {isOpen && (
-        <div className={`absolute top-0 bottom-0 left-0 w-1 ${
+        <div className={`absolute top-0 bottom-0 left-0 w-1.5 ${
           isDark 
             ? 'bg-gradient-to-b from-cyan-400 via-blue-500 to-teal-400'
+            : isHomePage1
+            ? 'bg-[#0846E7]'
             : 'bg-gradient-to-b from-blue-600 via-cyan-500 to-teal-500'
         }`}></div>
       )}
@@ -304,12 +336,14 @@ function FAQCard({ faq, index, isOpen, isDark, onToggle }) {
       <button
         type="button"
         onClick={onToggle}
-        className="w-full p-5 sm:p-6 flex items-center justify-between gap-4 focus:outline-none text-left"
+        className="w-full p-5 sm:p-6 flex items-center justify-between gap-4 focus:outline-none text-left cursor-pointer"
         aria-expanded={isOpen}
       >
         <span className={`text-sm sm:text-base font-bold transition-colors ${
           isDark
             ? isOpen ? 'text-cyan-300' : 'text-slate-100 group-hover:text-cyan-300'
+            : isHomePage1
+            ? isOpen ? 'text-[#0846E7]' : 'text-slate-900 group-hover:text-[#0846E7]'
             : isOpen ? 'text-blue-600' : 'text-slate-900 group-hover:text-blue-600'
         }`}>
           {faq.question}
@@ -321,6 +355,10 @@ function FAQCard({ faq, index, isOpen, isDark, onToggle }) {
             ? isOpen
               ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-xs'
               : 'bg-slate-800 text-slate-300 border-white/10 group-hover:bg-slate-700 group-hover:text-cyan-300'
+            : isHomePage1
+            ? isOpen
+              ? 'bg-[#0846E7] text-white border-[#0846E7] shadow-xs'
+              : 'bg-slate-100 text-slate-600 border-slate-200 group-hover:bg-[#0846E7] group-hover:text-white group-hover:border-[#0846E7]'
             : isOpen
               ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
               : 'bg-slate-50 text-slate-500 border-slate-200 group-hover:bg-blue-50 group-hover:text-blue-600'

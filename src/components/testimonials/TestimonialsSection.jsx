@@ -12,7 +12,7 @@ import {
   Award
 } from 'lucide-react';
 
-export default function TestimonialsSection({ onOpenContact, onOpenSurvey }) {
+export default function TestimonialsSection({ onOpenContact, onOpenSurvey, isHomePage1 = false }) {
   const row1Testimonials = [
     {
       id: "test-1",
@@ -122,12 +122,23 @@ export default function TestimonialsSection({ onOpenContact, onOpenSurvey }) {
   return (
     <section 
       id="testimonials"
-      className="relative py-20 sm:py-24 lg:py-28 overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-slate-50 to-[#F8FAFC] text-slate-800 border-t border-slate-200/70"
+      className={`relative py-20 sm:py-24 lg:py-28 overflow-hidden text-slate-800 border-t border-slate-200/70 ${
+        isHomePage1 ? 'bg-[#F8FAFC]' : 'bg-gradient-to-b from-[#F8FAFC] via-slate-50 to-[#F8FAFC]'
+      }`}
       aria-label="Client Testimonials and Reviews"
     >
       {/* Decorative Ambient Background Glows (Strictly Contained) */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-r from-blue-400/10 via-cyan-400/10 to-transparent rounded-full blur-[140px] pointer-events-none -z-10"></div>
-      <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-teal-100/40 rounded-full blur-[130px] pointer-events-none -z-10"></div>
+      {isHomePage1 ? (
+        <>
+          <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-[#0846E7]/5 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+          <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-[#0846E7]/5 rounded-full blur-[130px] pointer-events-none -z-10"></div>
+        </>
+      ) : (
+        <>
+          <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-r from-blue-400/10 via-cyan-400/10 to-transparent rounded-full blur-[140px] pointer-events-none -z-10"></div>
+          <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-teal-100/40 rounded-full blur-[130px] pointer-events-none -z-10"></div>
+        </>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -140,13 +151,23 @@ export default function TestimonialsSection({ onOpenContact, onOpenSurvey }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 backdrop-blur-md shadow-xs mb-4"
+            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full backdrop-blur-md shadow-xs mb-4 ${
+              isHomePage1 
+                ? 'bg-[#0846E7]/10 border border-[#0846E7]/25' 
+                : 'bg-blue-50/90 border border-blue-200/80'
+            }`}
           >
             <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                isHomePage1 ? 'bg-[#0846E7]' : 'bg-blue-500'
+              }`}></span>
+              <span className={`relative inline-flex rounded-full h-2 w-2 ${
+                isHomePage1 ? 'bg-[#0846E7]' : 'bg-blue-600'
+              }`}></span>
             </span>
-            <span className="text-xs font-bold text-blue-700 tracking-wide uppercase">
+            <span className={`text-xs font-bold tracking-wide uppercase ${
+              isHomePage1 ? 'text-[#0846E7]' : 'text-blue-700'
+            }`}>
               Testimonials
             </span>
           </motion.div>
@@ -160,9 +181,15 @@ export default function TestimonialsSection({ onOpenContact, onOpenSurvey }) {
             className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.12]"
           >
             What Our{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
-              Clients Say
-            </span>
+            {isHomePage1 ? (
+              <span className="text-[#0846E7]">
+                Clients Say
+              </span>
+            ) : (
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
+                Clients Say
+              </span>
+            )}
           </motion.h2>
 
           {/* Subheading */}
@@ -190,7 +217,7 @@ export default function TestimonialsSection({ onOpenContact, onOpenSurvey }) {
         <div className="flex overflow-hidden">
           <div className="animate-marquee gap-6 flex shrink-0">
             {row1Doubled.map((item, idx) => (
-              <TestimonialCard key={`row1-${item.id}-${idx}`} item={item} />
+              <TestimonialCard key={`row1-${item.id}-${idx}`} item={item} isHomePage1={isHomePage1} />
             ))}
           </div>
         </div>
@@ -199,7 +226,7 @@ export default function TestimonialsSection({ onOpenContact, onOpenSurvey }) {
         <div className="flex overflow-hidden">
           <div className="animate-marquee-reverse gap-6 flex shrink-0">
             {row2Doubled.map((item, idx) => (
-              <TestimonialCard key={`row2-${item.id}-${idx}`} item={item} />
+              <TestimonialCard key={`row2-${item.id}-${idx}`} item={item} isHomePage1={isHomePage1} />
             ))}
           </div>
         </div>
@@ -213,12 +240,16 @@ export default function TestimonialsSection({ onOpenContact, onOpenSurvey }) {
 }
 
 // Reusable Testimonial Card Component
-function TestimonialCard({ item }) {
+function TestimonialCard({ item, isHomePage1 }) {
   return (
-    <div className="w-[340px] sm:w-[410px] shrink-0 rounded-2xl bg-white border border-slate-200/90 p-6 sm:p-7 shadow-xs hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between relative group text-left">
+    <div className={`w-[340px] sm:w-[410px] shrink-0 rounded-2xl bg-white border border-slate-200/90 p-6 sm:p-7 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative group text-left ${
+      isHomePage1 ? 'hover:border-[#0846E7]/40' : 'hover:border-blue-300'
+    }`}>
       
       {/* Decorative Watermark Quote Icon */}
-      <Quote className="absolute top-5 right-5 w-9 h-9 text-slate-200/50 group-hover:text-blue-100 transition-colors pointer-events-none" />
+      <Quote className={`absolute top-5 right-5 w-9 h-9 text-slate-200/50 transition-colors pointer-events-none ${
+        isHomePage1 ? 'group-hover:text-[#0846E7]/10' : 'group-hover:text-blue-100'
+      }`} />
 
       {/* Top Header: 5 Stars + Industry Sector Tag */}
       <div>
@@ -248,8 +279,10 @@ function TestimonialCard({ item }) {
       {/* Bottom Profile Footer */}
       <div className="border-t border-slate-100 pt-4 mt-5 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          {/* Avatar with Initials & Gradient */}
-          <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${item.avatarGradient} flex items-center justify-center text-white font-bold text-xs tracking-wider shadow-xs shrink-0`}>
+          {/* Avatar with Initials & Gradient or Solid #0846E7 */}
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-xs tracking-wider shadow-xs shrink-0 ${
+            isHomePage1 ? 'bg-[#0846E7]' : `bg-gradient-to-br ${item.avatarGradient}`
+          }`}>
             {item.initials}
           </div>
 
@@ -268,9 +301,9 @@ function TestimonialCard({ item }) {
         {item.verified && (
           <div 
             title="Verified Enterprise Client"
-            className="flex items-center text-blue-600 shrink-0"
+            className={`flex items-center shrink-0 ${isHomePage1 ? 'text-[#0846E7]' : 'text-blue-600'}`}
           >
-            <CheckCircle2 className="w-4 h-4 text-blue-600" />
+            <CheckCircle2 className={`w-4 h-4 ${isHomePage1 ? 'text-[#0846E7]' : 'text-blue-600'}`} />
           </div>
         )}
       </div>

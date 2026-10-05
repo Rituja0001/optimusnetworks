@@ -99,7 +99,7 @@ function PeplinkLogo({ className }) {
   );
 }
 
-export default function TrustedPartnersStrip({ theme = "light" }) {
+export default function TrustedPartnersStrip({ theme = "light", isHomePage1 = false }) {
   const isDark = theme === "dark";
 
   const partners = [
@@ -121,13 +121,15 @@ export default function TrustedPartnersStrip({ theme = "light" }) {
       className={`relative py-16 sm:py-20 lg:py-24 overflow-hidden ${
         isDark 
           ? 'bg-gradient-to-br from-[#060A14] via-[#0A1628] to-[#0E2A4A] border-y border-cyan-500/20 text-white' 
+          : isHomePage1
+          ? 'bg-[#0846E7] border-y border-blue-400/30 text-white'
           : 'bg-white border-b border-slate-200/70'
       }`}
       aria-label="Trusted Technology Partners"
     >
       {/* Subtle Ambient Background Mesh */}
       <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[250px] rounded-full blur-[100px] pointer-events-none -z-10 ${
-        isDark ? 'bg-gradient-to-r from-blue-500/15 via-cyan-400/15 to-transparent' : 'bg-gradient-to-r from-blue-400/5 via-cyan-400/5 to-transparent'
+        isDark ? 'bg-gradient-to-r from-blue-500/15 via-cyan-400/15 to-transparent' : isHomePage1 ? 'bg-white/10' : 'bg-[#0846E7]/5'
       }`}></div>
 
       {isDark && (
@@ -146,19 +148,21 @@ export default function TrustedPartnersStrip({ theme = "light" }) {
             className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full mb-3.5 shadow-xs ${
               isDark 
                 ? 'bg-cyan-500/10 border border-cyan-400/30 text-cyan-300' 
-                : 'bg-blue-50 border border-blue-200/80 text-blue-700'
+                : isHomePage1
+                ? 'bg-white/15 border border-white/25 text-white'
+                : 'bg-[#0846E7]/10 border border-[#0846E7]/25 text-[#0846E7]'
             }`}
           >
             <span className="flex h-2 w-2 relative">
               <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                isDark ? 'bg-cyan-400' : 'bg-blue-500'
+                isDark ? 'bg-cyan-400' : isHomePage1 ? 'bg-white' : 'bg-[#0846E7]'
               }`}></span>
               <span className={`relative inline-flex rounded-full h-2 w-2 ${
-                isDark ? 'bg-cyan-400' : 'bg-blue-600'
+                isDark ? 'bg-cyan-400' : isHomePage1 ? 'bg-white' : 'bg-[#0846E7]'
               }`}></span>
             </span>
             <span className={`text-[11px] sm:text-xs font-bold uppercase tracking-wider ${
-              isDark ? 'text-cyan-300' : 'text-blue-700'
+              isDark ? 'text-cyan-300' : isHomePage1 ? 'text-white' : 'text-[#0846E7]'
             }`}>
               Vendor &amp; Carrier Alliances
             </span>
@@ -170,17 +174,23 @@ export default function TrustedPartnersStrip({ theme = "light" }) {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className={`text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight ${
-              isDark ? 'text-white' : 'text-slate-900'
+              isDark || isHomePage1 ? 'text-white' : 'text-slate-900'
             }`}
           >
             Trusted by Leading{" "}
-            <span className={`bg-clip-text text-transparent ${
-              isDark 
-                ? 'bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300' 
-                : 'bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-700'
-            }`}>
-              Technology Partners
-            </span>
+            {isDark ? (
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300">
+                Technology Partners
+              </span>
+            ) : isHomePage1 ? (
+              <span className="text-white underline decoration-white/30">
+                Technology Partners
+              </span>
+            ) : (
+              <span className="text-[#0846E7]">
+                Technology Partners
+              </span>
+            )}
           </motion.h2>
 
           <motion.p 
@@ -189,7 +199,7 @@ export default function TrustedPartnersStrip({ theme = "light" }) {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className={`mt-3 text-sm sm:text-base font-normal max-w-2xl mx-auto leading-relaxed ${
-              isDark ? 'text-slate-300/80' : 'text-slate-500'
+              isDark ? 'text-slate-300/80' : isHomePage1 ? 'text-white/85' : 'text-slate-500'
             }`}
           >
             We are vendor and carrier agnostic, partnering with industry leaders to deliver carrier-grade resilience, dedicated capacity, and zero single points of failure.
@@ -210,11 +220,15 @@ export default function TrustedPartnersStrip({ theme = "light" }) {
         <div className={`absolute top-0 bottom-0 left-0 w-16 sm:w-32 z-10 pointer-events-none ${
           isDark 
             ? 'bg-gradient-to-r from-[#0A1628] via-[#0A1628]/80 to-transparent' 
+            : isHomePage1
+            ? 'bg-gradient-to-r from-[#0846E7] via-[#0846E7]/80 to-transparent'
             : 'bg-gradient-to-r from-white via-white/80 to-transparent'
         }`}></div>
         <div className={`absolute top-0 bottom-0 right-0 w-16 sm:w-32 z-10 pointer-events-none ${
           isDark 
             ? 'bg-gradient-to-l from-[#0A1628] via-[#0A1628]/80 to-transparent' 
+            : isHomePage1
+            ? 'bg-gradient-to-l from-[#0846E7] via-[#0846E7]/80 to-transparent'
             : 'bg-gradient-to-l from-white via-white/80 to-transparent'
         }`}></div>
 
@@ -226,12 +240,16 @@ export default function TrustedPartnersStrip({ theme = "light" }) {
               className={`group relative flex items-center justify-center h-20 sm:h-24 px-6 sm:px-8 rounded-2xl transition-all duration-300 cursor-pointer shrink-0 min-w-[190px] sm:min-w-[220px] ${
                 isDark 
                   ? 'bg-white/[0.05] hover:bg-white/[0.09] border border-white/10 hover:border-cyan-400/50 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_25px_rgba(0,210,255,0.25)] hover:-translate-y-1 backdrop-blur-md' 
-                  : 'bg-gradient-to-b from-white to-slate-50/70 hover:to-white border border-slate-200/80 hover:border-blue-400/80 shadow-[0_4px_16px_-4px_rgba(15,23,42,0.06),0_1px_3px_0_rgba(15,23,42,0.02)] hover:shadow-[0_14px_30px_-6px_rgba(0,102,255,0.15),0_4px_10px_-2px_rgba(15,23,42,0.04)] hover:-translate-y-1'
+                  : isHomePage1
+                  ? 'bg-white hover:bg-slate-50 border border-white/40 shadow-[0_6px_24px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.25)] hover:-translate-y-1'
+                  : 'bg-white hover:bg-slate-50/60 border border-slate-200/80 hover:border-[#0846E7]/50 shadow-[0_4px_16px_-4px_rgba(15,23,42,0.06),0_1px_3px_0_rgba(15,23,42,0.02)] hover:shadow-[0_14px_30px_-6px_rgba(8,70,231,0.15)] hover:-translate-y-1'
               }`}
             >
               <partner.Component className={`h-8 sm:h-9 w-auto max-w-[140px] sm:max-w-[165px] object-contain transition-all duration-300 ${
                 isDark 
                   ? 'brightness-0 invert opacity-80 group-hover:opacity-100 group-hover:scale-105' 
+                  : isHomePage1
+                  ? 'opacity-95 group-hover:opacity-100 group-hover:scale-105'
                   : 'filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105'
               }`} />
             </div>

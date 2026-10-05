@@ -109,7 +109,7 @@ export default function CookieConsent({ theme = "light", onNavigate }) {
               <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${
                 isDark 
                   ? 'bg-cyan-500/15 border border-cyan-400/30 text-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.3)]' 
-                  : 'bg-blue-50 border border-blue-200 text-blue-600 shadow-xs'
+                  : 'bg-[#0846E7]/10 border border-[#0846E7]/25 text-[#0846E7] shadow-xs'
               }`}>
                 <Cookie className="w-5 h-5 animate-pulse" />
               </div>
@@ -119,8 +119,8 @@ export default function CookieConsent({ theme = "light", onNavigate }) {
                 }`}>
                   We Value Your Privacy
                 </h3>
-                <span className={`text-[11px] font-mono ${
-                  isDark ? 'text-cyan-400' : 'text-blue-600'
+                <span className={`text-[11px] font-mono font-semibold ${
+                  isDark ? 'text-cyan-400' : 'text-[#0846E7]'
                 }`}>
                   UK GDPR & Security Telemetry
                 </span>
@@ -139,10 +139,10 @@ export default function CookieConsent({ theme = "light", onNavigate }) {
               <button
                 type="button"
                 onClick={handleAccept}
-                className={`py-2 px-3.5 rounded-xl font-bold text-xs tracking-wide transition-all shadow-xs flex items-center justify-center gap-1.5 ${
+                className={`py-2 px-3.5 rounded-xl font-bold text-xs tracking-wide transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer ${
                   isDark
                     ? 'bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500 text-slate-950 font-bold shadow-[0_4px_16px_rgba(34,211,238,0.3)]'
-                    : 'bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 hover:opacity-95 text-white shadow-[0_4px_16px_rgba(0,102,255,0.25)]'
+                    : 'bg-[#0846E7] hover:bg-[#0639BC] text-white shadow-[0_4px_16px_rgba(8,70,231,0.25)]'
                 }`}
               >
                 <span>Accept All</span>
@@ -151,7 +151,7 @@ export default function CookieConsent({ theme = "light", onNavigate }) {
               <button
                 type="button"
                 onClick={handleDecline}
-                className={`py-2 px-3.5 rounded-xl font-semibold text-xs transition-all flex items-center justify-center ${
+                className={`py-2 px-3.5 rounded-xl font-semibold text-xs transition-all flex items-center justify-center cursor-pointer ${
                   isDark
                     ? 'border border-white/20 hover:bg-white/10 text-slate-300 hover:text-white'
                     : 'border border-slate-200 hover:bg-slate-100/80 text-slate-700'
@@ -172,7 +172,7 @@ export default function CookieConsent({ theme = "light", onNavigate }) {
                   }
                 }}
                 className={`inline-flex items-center gap-1 text-[11px] font-semibold transition-colors group ${
-                  isDark ? 'text-cyan-400 hover:text-cyan-300' : 'text-blue-600 hover:text-blue-700'
+                  isDark ? 'text-cyan-400 hover:text-cyan-300' : 'text-[#0846E7] hover:underline'
                 }`}
               >
                 <span>Read Full Cookie Policy</span>
@@ -234,12 +234,12 @@ export default function CookieConsent({ theme = "light", onNavigate }) {
               className={`w-12 h-12 sm:w-13 sm:h-13 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg cursor-pointer ${
                 isDark
                   ? 'bg-slate-900/90 hover:bg-slate-800 text-cyan-400 border border-cyan-500/40 shadow-[0_8px_25px_rgba(0,0,0,0.5),0_0_15px_rgba(34,211,238,0.2)]'
-                  : 'bg-white/95 hover:bg-slate-50 text-slate-700 hover:text-blue-600 border border-slate-200/90 shadow-[0_8px_25px_rgba(15,23,42,0.12)]'
+                  : 'bg-white/95 hover:bg-slate-50 text-slate-700 hover:text-[#0846E7] border border-slate-200/90 shadow-[0_8px_25px_rgba(15,23,42,0.12)]'
               }`}
               title="Cookie Preferences"
               aria-label="Open cookie preferences banner"
             >
-              <Cookie className={`w-5 h-5 sm:w-5.5 sm:h-5.5 ${isDark ? 'text-cyan-400' : 'text-blue-600'}`} />
+              <Cookie className={`w-5 h-5 sm:w-5.5 sm:h-5.5 ${isDark ? 'text-cyan-400' : 'text-[#0846E7]'}`} />
             </motion.button>
           </motion.div>
         )}

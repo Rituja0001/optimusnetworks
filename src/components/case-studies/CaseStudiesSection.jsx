@@ -47,7 +47,7 @@ function AnimatedNumber({ value, suffix = "", prefix = "" }) {
   );
 }
 
-export default function CaseStudiesSection({ onOpenContact }) {
+export default function CaseStudiesSection({ onOpenContact, isHomePage1 = false }) {
   const [activeMobileIndex, setActiveMobileIndex] = useState(0);
   const carouselRef = useRef(null);
 
@@ -111,12 +111,18 @@ export default function CaseStudiesSection({ onOpenContact }) {
   return (
     <section 
       id="case-studies"
-      className="relative py-20 sm:py-24 lg:py-28 overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-slate-50 to-[#F8FAFC] text-slate-800 border-b border-slate-200/70"
+      className={`relative py-20 sm:py-24 lg:py-28 overflow-hidden text-slate-800 border-b border-slate-200/70 ${
+        isHomePage1 ? 'bg-[#F8FAFC]' : 'bg-gradient-to-b from-[#F8FAFC] via-slate-50 to-[#F8FAFC]'
+      }`}
       aria-label="Client Case Studies"
     >
       {/* Decorative Subtle Background Glows (Strictly Contained) */}
-      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-gradient-to-l from-blue-400/10 via-cyan-300/10 to-transparent rounded-full blur-[140px] pointer-events-none -z-10"></div>
-      <div className="absolute bottom-10 left-0 w-[450px] h-[450px] bg-gradient-to-r from-teal-400/10 via-blue-200/20 to-transparent rounded-full blur-[140px] pointer-events-none -z-10"></div>
+      <div className={`absolute top-1/3 right-0 w-[500px] h-[500px] rounded-full blur-[140px] pointer-events-none -z-10 ${
+        isHomePage1 ? 'bg-[#0846E7]/5' : 'bg-gradient-to-l from-blue-400/10 via-cyan-300/10 to-transparent'
+      }`}></div>
+      <div className={`absolute bottom-10 left-0 w-[450px] h-[450px] rounded-full blur-[140px] pointer-events-none -z-10 ${
+        isHomePage1 ? 'bg-[#0846E7]/5' : 'bg-gradient-to-r from-teal-400/10 via-blue-200/20 to-transparent'
+      }`}></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -130,13 +136,21 @@ export default function CaseStudiesSection({ onOpenContact }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 backdrop-blur-md shadow-xs mb-3.5"
+              className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full backdrop-blur-md shadow-xs mb-3.5 ${
+                isHomePage1 ? 'bg-[#0846E7]/10 border border-[#0846E7]/25' : 'bg-blue-50/90 border border-blue-200/80'
+              }`}
             >
               <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                  isHomePage1 ? 'bg-[#0846E7]' : 'bg-blue-500'
+                }`}></span>
+                <span className={`relative inline-flex rounded-full h-2 w-2 ${
+                  isHomePage1 ? 'bg-[#0846E7]' : 'bg-blue-600'
+                }`}></span>
               </span>
-              <span className="text-xs font-bold text-blue-700 tracking-wide uppercase">
+              <span className={`text-xs font-bold tracking-wide uppercase ${
+                isHomePage1 ? 'text-[#0846E7]' : 'text-blue-700'
+              }`}>
                 Case Studies
               </span>
             </motion.div>
@@ -149,9 +163,15 @@ export default function CaseStudiesSection({ onOpenContact }) {
               className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.12]"
             >
               Learn From Businesses Like{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
-                Yours
-              </span>
+              {isHomePage1 ? (
+                <span className="text-[#0846E7]">
+                  Yours
+                </span>
+              ) : (
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
+                  Yours
+                </span>
+              )}
             </motion.h2>
 
             <motion.p
@@ -165,7 +185,7 @@ export default function CaseStudiesSection({ onOpenContact }) {
             </motion.p>
           </div>
 
-          {/* Right: Pill-style Outlined Button with Hover Gradient Fill */}
+          {/* Right: Pill-style Outlined Button */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -176,10 +196,15 @@ export default function CaseStudiesSection({ onOpenContact }) {
             <button
               type="button"
               onClick={onOpenContact}
-              className="group relative overflow-hidden px-6 py-3 rounded-full border-2 border-blue-600/80 text-blue-600 font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 hover:text-white hover:border-transparent hover:shadow-[0_8px_25px_rgba(0,102,255,0.35)] flex items-center gap-2"
+              className={`group relative overflow-hidden px-6 py-3 rounded-full border-2 font-bold text-xs sm:text-sm tracking-wide transition-all duration-300 flex items-center gap-2 cursor-pointer ${
+                isHomePage1 
+                  ? 'border-[#0846E7] text-[#0846E7] hover:bg-[#0846E7] hover:text-white shadow-xs hover:shadow-[0_8px_25px_rgba(8,70,231,0.35)]' 
+                  : 'border-blue-600/80 text-blue-600 hover:text-white hover:border-transparent hover:shadow-[0_8px_25px_rgba(0,102,255,0.35)]'
+              }`}
             >
-              {/* Animated fill wave on hover */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out -z-10"></div>
+              {!isHomePage1 && (
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out -z-10"></div>
+              )}
               
               <span className="relative z-10">See All Case Studies</span>
               <ArrowRight className="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
@@ -202,10 +227,14 @@ export default function CaseStudiesSection({ onOpenContact }) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.15 + index * 0.12, ease: [0.16, 1, 0.3, 1] }}
               onClick={onOpenContact}
-              className="group relative flex flex-col justify-between rounded-3xl bg-white border border-slate-200/90 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.06),0_1px_3px_0_rgba(15,23,42,0.02)] hover:shadow-[0_24px_50px_-12px_rgba(0,102,255,0.18)] hover:border-blue-300 hover:-translate-y-2.5 transition-all duration-400 ease-out cursor-pointer overflow-hidden text-left shrink-0 w-[85vw] sm:w-[380px] lg:w-auto snap-center"
+              className={`group relative flex flex-col justify-between rounded-3xl bg-white border border-slate-200/90 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.06),0_1px_3px_0_rgba(15,23,42,0.02)] hover:-translate-y-2.5 transition-all duration-400 ease-out cursor-pointer overflow-hidden text-left shrink-0 w-[85vw] sm:w-[380px] lg:w-auto snap-center ${
+                isHomePage1 
+                  ? 'hover:border-[#0846E7]/50 hover:shadow-[0_24px_50px_-12px_rgba(8,70,231,0.18)]' 
+                  : 'hover:border-blue-300 hover:shadow-[0_24px_50px_-12px_rgba(0,102,255,0.18)]'
+              }`}
             >
               
-              {/* 1. TOP FULL-BLEED IMAGE AREA (Top 60-65% visual impact) */}
+              {/* 1. TOP FULL-BLEED IMAGE AREA */}
               <div className="relative aspect-[16/10] sm:aspect-[16/10] w-full overflow-hidden bg-slate-900">
                 <img 
                   src={study.image} 
@@ -214,13 +243,15 @@ export default function CaseStudiesSection({ onOpenContact }) {
                   loading="lazy"
                 />
 
-                {/* Gradient Overlay: Dark vignette at top, subtle fade into content at bottom */}
+                {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-white via-slate-950/20 to-slate-950/60 transition-opacity duration-300"></div>
 
-                {/* Top-Left: Client Logo / Name Chip (Elevated with Shadow) */}
+                {/* Top-Left: Client Logo / Name Chip */}
                 <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-white/90 shadow-md group-hover:scale-105 transition-transform duration-300">
-                  <div className="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
-                    <study.clientIcon className="w-3 h-3 text-blue-600" />
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
+                    isHomePage1 ? 'bg-[#0846E7]/10 text-[#0846E7]' : 'bg-blue-50 text-blue-600'
+                  }`}>
+                    <study.clientIcon className={`w-3 h-3 ${isHomePage1 ? 'text-[#0846E7]' : 'text-blue-600'}`} />
                   </div>
                     <span className="text-xs font-extrabold text-slate-900 tracking-tight">
                       {study.client}
@@ -231,7 +262,9 @@ export default function CaseStudiesSection({ onOpenContact }) {
                   <div className="absolute top-4 right-4 z-10">
                     <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/85 group-hover:bg-white text-slate-800 backdrop-blur-md border border-white/70 shadow-sm text-xs font-bold transition-all duration-300 group-hover:shadow-md">
                       <span>Read More</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-blue-600 transition-transform duration-300 group-hover:translate-x-1" />
+                      <ArrowRight className={`w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1 ${
+                        isHomePage1 ? 'text-[#0846E7]' : 'text-blue-600'
+                      }`} />
                     </div>
                   </div>
 
@@ -246,15 +279,21 @@ export default function CaseStudiesSection({ onOpenContact }) {
                 {/* 2. LOWER CONTENT AREA */}
                 <div className="p-6 sm:p-7 flex flex-col justify-between flex-1 space-y-5 bg-white">
                   
-                  {/* Headline (Bold, dark, 2-line clamp) */}
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                  {/* Headline */}
+                  <h3 className={`text-base sm:text-lg font-bold text-slate-900 transition-colors line-clamp-2 leading-snug ${
+                    isHomePage1 ? 'group-hover:text-[#0846E7]' : 'group-hover:text-blue-600'
+                  }`}>
                     {study.headline}
                   </h3>
 
-                  {/* Stat Highlight Row: Large gradient counter + label */}
+                  {/* Stat Highlight Row: Large solid/gradient counter + label */}
                   <div className="pt-4 border-t border-slate-100 flex items-baseline justify-between gap-3">
                     <div>
-                      <div className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
+                      <div className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${
+                        isHomePage1 
+                          ? 'text-[#0846E7]' 
+                          : 'bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500'
+                      }`}>
                         <AnimatedNumber 
                           value={study.statValue} 
                           prefix={study.statPrefix} 
@@ -284,7 +323,9 @@ export default function CaseStudiesSection({ onOpenContact }) {
             <div
               key={i}
               className={`h-2 rounded-full transition-all duration-300 ${
-                activeMobileIndex === i ? 'w-6 bg-blue-600' : 'w-2 bg-slate-200'
+                activeMobileIndex === i 
+                  ? isHomePage1 ? 'w-6 bg-[#0846E7]' : 'w-6 bg-blue-600' 
+                  : 'w-2 bg-slate-200'
               }`}
             />
           ))}

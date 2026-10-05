@@ -176,7 +176,7 @@ export default function CustomCursor({ variant = "default" }) {
       {/* ============================================================== */}
       {variant === 'default' && (
         <>
-          {/* Inner Sharp Dot */}
+          {/* Inner Sharp Dot - Solid #0846E7 without gradients */}
           <div
             ref={dotRef}
             className="fixed top-0 left-0 pointer-events-none z-[99999] will-change-transform transition-opacity duration-200"
@@ -185,15 +185,15 @@ export default function CustomCursor({ variant = "default" }) {
             <div 
               className={`rounded-full transition-all duration-200 ease-out ${
                 isHovered 
-                  ? 'w-2 h-2 -ml-1 -mt-1 bg-gradient-to-r from-blue-600 to-cyan-500 scale-75 opacity-50' 
+                  ? 'w-2 h-2 -ml-1 -mt-1 bg-[#0846E7] scale-75 opacity-60' 
                   : isClicked 
-                    ? 'w-2 h-2 -ml-1 -mt-1 bg-gradient-to-r from-blue-600 to-cyan-500 scale-75 shadow-[0_0_12px_rgba(0,102,255,0.8)]' 
-                    : 'w-2 h-2 -ml-1 -mt-1 bg-gradient-to-r from-blue-600 to-cyan-500 shadow-[0_0_8px_rgba(0,102,255,0.6)]'
+                    ? 'w-2 h-2 -ml-1 -mt-1 bg-[#0846E7] scale-75 shadow-[0_0_12px_rgba(8,70,231,0.85)]' 
+                    : 'w-2 h-2 -ml-1 -mt-1 bg-[#0846E7] shadow-[0_0_8px_rgba(8,70,231,0.65)]'
               }`}
             />
           </div>
 
-          {/* Trailing Outer Magnetic Ring */}
+          {/* Trailing Outer Magnetic Ring - Solid #0846E7 tint without gradients */}
           <div
             ref={ringRef}
             className="fixed top-0 left-0 pointer-events-none z-[99998] will-change-transform transition-opacity duration-200"
@@ -202,12 +202,12 @@ export default function CustomCursor({ variant = "default" }) {
             <div 
               className={`rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                 isHovered 
-                  ? 'w-14 h-14 -ml-7 -mt-7 border border-blue-500/60 bg-gradient-to-br from-blue-500/15 via-cyan-400/10 to-teal-400/15 backdrop-blur-[2px] shadow-[0_0_24px_rgba(0,102,255,0.25)]' 
+                  ? 'w-14 h-14 -ml-7 -mt-7 border border-[#0846E7]/60 bg-[#0846E7]/15 backdrop-blur-[2px] shadow-[0_0_24px_rgba(8,70,231,0.25)]' 
                   : isTextHovered 
-                    ? 'w-1 h-6 -ml-0.5 -mt-3 bg-blue-600/80 border-none shadow-[0_0_8px_rgba(0,102,255,0.4)]' 
+                    ? 'w-1 h-6 -ml-0.5 -mt-3 bg-[#0846E7]/80 border-none shadow-[0_0_8px_rgba(8,70,231,0.4)]' 
                     : isClicked 
-                      ? 'w-8 h-8 -ml-4 -mt-4 border-[1.5px] border-blue-600/70 bg-blue-500/10 scale-90' 
-                      : 'w-9 h-9 -ml-[18px] -mt-[18px] border-[1.5px] border-blue-500/40 bg-blue-500/[0.03] backdrop-blur-[0.5px]'
+                      ? 'w-8 h-8 -ml-4 -mt-4 border-[1.5px] border-[#0846E7]/70 bg-[#0846E7]/10 scale-90' 
+                      : 'w-9 h-9 -ml-[18px] -mt-[18px] border-[1.5px] border-[#0846E7]/40 bg-[#0846E7]/[0.03] backdrop-blur-[0.5px]'
               }`}
             />
           </div>

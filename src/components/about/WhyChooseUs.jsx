@@ -15,40 +15,46 @@ import {
 import datacenterImg from '../../assets/images/datacenter-fiber.jpg';
 import fiberCablingImg from '../../assets/images/fiber-cabling-macro.jpg';
 
-export default function WhyChooseUs({ onOpenContact }) {
+export default function WhyChooseUs({ onOpenContact, isHomePage1 = false }) {
   const narrativePoints = [
     {
       icon: Cpu,
       title: "Ethos of Technical Mastery",
       text: "Optimus Networks is more than just a service provider. We are a team of dedicated professionals with a singular focus on data networking. Our foundation is built on the ethos of expertise, and we've committed ourselves to mastering every aspect of data networking.",
       accent: "from-blue-600 to-cyan-500",
-      iconBg: "bg-blue-50 text-blue-600 border-blue-200/80"
+      iconBg: isHomePage1 ? "bg-[#0846E7]/10 text-[#0846E7] border-[#0846E7]/25" : "bg-blue-50 text-blue-600 border-blue-200/80"
     },
     {
       icon: Target,
       title: "Custom-Engineered Architecture",
       text: "Our mission is straightforward - to deliver high-quality, custom network solutions that align perfectly with our clients' unique needs. We reject the notion of 'one-size-fits-all' solutions. Instead, we invest time in understanding your specific needs, challenges, and objectives.",
       accent: "from-cyan-500 to-teal-500",
-      iconBg: "bg-cyan-50 text-cyan-600 border-cyan-200/80"
+      iconBg: isHomePage1 ? "bg-[#0846E7]/10 text-[#0846E7] border-[#0846E7]/25" : "bg-cyan-50 text-cyan-600 border-cyan-200/80"
     },
     {
       icon: Users,
       title: "Enduring Long-Term Partnerships",
       text: "Our commitment goes beyond providing bespoke solutions. We believe in fostering enduring relationships with our clients. With Optimus Networks, you're not just choosing a service provider - you're partnering with a team that's genuinely invested in your success.",
       accent: "from-teal-500 to-emerald-500",
-      iconBg: "bg-emerald-50 text-emerald-600 border-emerald-200/80"
+      iconBg: isHomePage1 ? "bg-[#0846E7]/10 text-[#0846E7] border-[#0846E7]/25" : "bg-emerald-50 text-emerald-600 border-emerald-200/80"
     }
   ];
 
   return (
     <section 
       id="about"
-      className="relative py-20 sm:py-24 lg:py-28 overflow-hidden bg-gradient-to-b from-[#F8FAFC] via-slate-50 to-[#F8FAFC] text-slate-800 border-b border-slate-200/70"
+      className={`relative py-20 sm:py-24 lg:py-28 overflow-hidden text-slate-800 border-b border-slate-200/70 ${
+        isHomePage1 ? 'bg-[#F8FAFC]' : 'bg-gradient-to-b from-[#F8FAFC] via-slate-50 to-[#F8FAFC]'
+      }`}
       aria-label="Why Choose Optimus Networks"
     >
       {/* Decorative Ambient Background Glows (Strictly Contained) */}
-      <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/10 via-cyan-300/10 to-transparent rounded-full blur-[130px] pointer-events-none -z-10"></div>
-      <div className="absolute bottom-10 right-0 w-[450px] h-[450px] bg-gradient-to-tl from-teal-400/10 via-blue-200/20 to-transparent rounded-full blur-[130px] pointer-events-none -z-10"></div>
+      <div className={`absolute top-1/3 left-0 w-[500px] h-[500px] rounded-full blur-[130px] pointer-events-none -z-10 ${
+        isHomePage1 ? 'bg-[#0846E7]/5' : 'bg-gradient-to-br from-blue-400/10 via-cyan-300/10 to-transparent'
+      }`}></div>
+      <div className={`absolute bottom-10 right-0 w-[450px] h-[450px] rounded-full blur-[130px] pointer-events-none -z-10 ${
+        isHomePage1 ? 'bg-[#0846E7]/5' : 'bg-gradient-to-tl from-teal-400/10 via-blue-200/20 to-transparent'
+      }`}></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -64,18 +70,26 @@ export default function WhyChooseUs({ onOpenContact }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-blue-50/80 border border-blue-200/80 backdrop-blur-md shadow-xs self-start"
+              className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full backdrop-blur-md shadow-xs self-start ${
+                isHomePage1 ? 'bg-[#0846E7]/10 border border-[#0846E7]/25' : 'bg-blue-50/80 border border-blue-200/80'
+              }`}
             >
               <span className="flex h-2.5 w-2.5 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                  isHomePage1 ? 'bg-[#0846E7]' : 'bg-blue-500'
+                }`}></span>
+                <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
+                  isHomePage1 ? 'bg-[#0846E7]' : 'bg-blue-600'
+                }`}></span>
               </span>
-              <span className="text-xs sm:text-sm font-bold text-blue-700 tracking-wide uppercase">
+              <span className={`text-xs sm:text-sm font-bold tracking-wide uppercase ${
+                isHomePage1 ? 'text-[#0846E7]' : 'text-blue-700'
+              }`}>
                 The Optimus Standard
               </span>
             </motion.div>
 
-            {/* Main Section Headline with Hero Brand Gradient */}
+            {/* Main Section Headline */}
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -84,9 +98,15 @@ export default function WhyChooseUs({ onOpenContact }) {
               className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.12]"
             >
               Why Choose{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
-                Optimus Networks
-              </span>
+              {isHomePage1 ? (
+                <span className="text-[#0846E7]">
+                  Optimus Networks
+                </span>
+              ) : (
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">
+                  Optimus Networks
+                </span>
+              )}
               ?
             </motion.h2>
 
@@ -110,7 +130,9 @@ export default function WhyChooseUs({ onOpenContact }) {
 
                     {/* Paragraph Content */}
                     <div className="flex-1 space-y-1">
-                      <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                      <h3 className={`text-base sm:text-lg font-bold text-slate-900 transition-colors ${
+                        isHomePage1 ? 'group-hover:text-[#0846E7]' : 'group-hover:text-blue-600'
+                      }`}>
                         {point.title}
                       </h3>
                       <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
@@ -128,15 +150,23 @@ export default function WhyChooseUs({ onOpenContact }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.45 }}
-              className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-50/90 via-cyan-50/60 to-emerald-50/40 border border-blue-200/80 p-5 sm:p-6 shadow-sm group mt-2"
+              className={`relative overflow-hidden rounded-2xl p-5 sm:p-6 shadow-sm group mt-2 ${
+                isHomePage1 
+                  ? 'bg-[#0846E7]/5 border border-[#0846E7]/25' 
+                  : 'bg-gradient-to-r from-blue-50/90 via-cyan-50/60 to-emerald-50/40 border border-blue-200/80'
+              }`}
             >
               {/* Left Vertical Accent Bar */}
-              <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-gradient-to-b from-blue-600 via-cyan-500 to-teal-500"></div>
+              <div className={`absolute top-0 bottom-0 left-0 w-1.5 ${
+                isHomePage1 ? 'bg-[#0846E7]' : 'bg-gradient-to-b from-blue-600 via-cyan-500 to-teal-500'
+              }`}></div>
 
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/10 text-blue-600 flex items-center justify-center shrink-0">
-                    <Sparkles className="w-5 h-5 text-blue-600" />
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                    isHomePage1 ? 'bg-[#0846E7]/10 text-[#0846E7]' : 'bg-blue-600/10 text-blue-600'
+                  }`}>
+                    <Sparkles className="w-5 h-5" />
                   </div>
                   <p className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
                     Join us, and let's navigate the path to exceptional results together.
@@ -147,7 +177,9 @@ export default function WhyChooseUs({ onOpenContact }) {
                   <button
                     type="button"
                     onClick={onOpenContact}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm tracking-wide transition-all shadow-xs hover:shadow-md shrink-0 self-start sm:self-auto group-hover:scale-[1.02]"
+                    className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-white font-semibold text-xs sm:text-sm tracking-wide transition-all shadow-xs hover:shadow-md shrink-0 self-start sm:self-auto group-hover:scale-[1.02] cursor-pointer ${
+                      isHomePage1 ? 'bg-[#0846E7] hover:bg-[#0639BC]' : 'bg-blue-600 hover:bg-blue-700'
+                    }`}
                   >
                     <span>Partner with Us</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -162,7 +194,9 @@ export default function WhyChooseUs({ onOpenContact }) {
           <div className="lg:col-span-5 relative flex flex-col justify-between w-full h-full gap-4 sm:gap-5 py-1">
             
             {/* Ambient Backlight for Image Group */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/15 via-cyan-400/15 to-teal-400/10 rounded-3xl blur-3xl transform -rotate-1 pointer-events-none -z-10"></div>
+            <div className={`absolute inset-0 rounded-3xl blur-3xl transform -rotate-1 pointer-events-none -z-10 ${
+              isHomePage1 ? 'bg-[#0846E7]/10' : 'bg-gradient-to-tr from-blue-500/15 via-cyan-400/15 to-teal-400/10'
+            }`}></div>
 
             {/* Floating Card 1: 10+ Years Expertise (Top-Left of Top Image) */}
             <motion.div
@@ -177,8 +211,10 @@ export default function WhyChooseUs({ onOpenContact }) {
                 transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
                 className="px-4 py-2.5 rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-[0_12px_30px_-6px_rgba(15,23,42,0.12),0_2px_8px_0_rgba(15,23,42,0.04)] flex items-center gap-2.5 text-left"
               >
-                <div className="w-9 h-9 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shrink-0 shadow-xs">
-                  <Award className="w-4 h-4 text-blue-600" />
+                <div className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 shadow-xs ${
+                  isHomePage1 ? 'bg-[#0846E7]/10 border-[#0846E7]/25 text-[#0846E7]' : 'bg-blue-50 border-blue-200 text-blue-600'
+                }`}>
+                  <Award className={`w-4 h-4 ${isHomePage1 ? 'text-[#0846E7]' : 'text-blue-600'}`} />
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
@@ -266,8 +302,10 @@ export default function WhyChooseUs({ onOpenContact }) {
                   transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
                   className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-[0_12px_28px_-6px_rgba(15,23,42,0.14),0_2px_6px_0_rgba(15,23,42,0.04)] flex items-center gap-2.5 text-left"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-cyan-50 border border-cyan-200 flex items-center justify-center text-cyan-600 shrink-0 shadow-xs">
-                    <Network className="w-4 h-4 text-cyan-600" />
+                  <div className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 shadow-xs ${
+                    isHomePage1 ? 'bg-[#0846E7]/10 border-[#0846E7]/25 text-[#0846E7]' : 'bg-cyan-50 border-cyan-200 text-cyan-600'
+                  }`}>
+                    <Network className={`w-4 h-4 ${isHomePage1 ? 'text-[#0846E7]' : 'text-cyan-600'}`} />
                   </div>
                   <div>
                     <div className="flex items-center gap-1.5">
@@ -286,8 +324,10 @@ export default function WhyChooseUs({ onOpenContact }) {
             <div className="lg:hidden flex items-center justify-center pt-1">
               <div className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-200/90 shadow-xs flex items-center justify-between text-left">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-cyan-50 border border-cyan-200 flex items-center justify-center text-cyan-600 shrink-0">
-                    <Network className="w-4 h-4 text-cyan-600" />
+                  <div className={`w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 ${
+                    isHomePage1 ? 'bg-[#0846E7]/10 border-[#0846E7]/25 text-[#0846E7]' : 'bg-cyan-50 border-cyan-200 text-cyan-600'
+                  }`}>
+                    <Network className={`w-4 h-4 ${isHomePage1 ? 'text-[#0846E7]' : 'text-cyan-600'}`} />
                   </div>
                   <div>
                     <span className="text-xs font-bold text-slate-900 block">100+ Enterprise Clients</span>
